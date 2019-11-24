@@ -10,6 +10,15 @@ import SwiftUI
 
 class ContentViewModel: ObservableObject {
     @Published var count: Int = 0
+    
+    func countUp(completion: (() -> Void)) {
+        count += 1
+    }
+    
+    func countDown(completion: (() -> Void)) {
+        count -= 1
+    }
+    
 }
 
 struct ContentView: View {
@@ -19,7 +28,14 @@ struct ContentView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 20.0) {
             Button("count up") {
-                self.viewModel.count += 1
+                self.viewModel.countUp {
+                    print(self.viewModel.count)
+                }
+            }
+            Button("count down") {
+                self.viewModel.countDown {
+                    print(self.viewModel.count)
+                }
             }
             Text(viewModel.count.description)
         }
